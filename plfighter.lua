@@ -1,24 +1,25 @@
+--loadstring(game:HttpGet(('https://raw.githubusercontent.com/shidemuri/scripts/main/plfighter.lua'),true))()
+
 --// Uses Mizt's bypass, Converted by SeriousSire \\--
 --// https://www.youtube.com/channel/UCXoHXDBV0ec1PwpZ6AEef8A \\--
 
 -- modified gale fighter that uses meleeEvent to kill instead of a fling
 -- only works on prison life and prob some clones cuz of this
+
 -- padero#0402
 
-coroutine.wrap(function()
-    local function Main()
-        pcall(function() sethiddenproperty(game:GetService("Players").LocalPlayer, "MaximumSimulationRadius", math.pow(math.huge,math.huge) * math.huge) end)
-        pcall(function() sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.pow(math.huge,math.huge) * math.huge) end)
-        pcall(function() setsimulationradius(math.pow(math.huge,math.huge) * math.huge) end)
-    end
-    game:GetService("RunService").Heartbeat:Connect(Main)
-end)()
+-- NET IS AT THE BOTTOM OF THE SCRIPT DONT WORRY
+-- i left there cuz otherwise velocity would break
+
 
 --// MAIN \\--
 
-
 SONG = 1793883074 --900817147
 
+local oldcfr = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+local a = workspace.Remote.loadchar:InvokeServer(game.Players.LocalPlayer, "Black")
+game.Players.LocalPlayer.CharacterAdded:Wait()
+game.Players.LocalPlayer.Character:WaitForChild('HumanoidRootPart').CFrame = oldcfr
 
 getgenv().Nullware_ReanimateConfiguration = {
 	["Netless"] = true, --Toggles Netless.
@@ -31,6 +32,7 @@ getgenv().Nullware_ReanimateConfiguration = {
 	["Godmode"] = true--Toggles Godmode.
 }
 loadstring(game:HttpGetAsync("https://gist.githubusercontent.com/M6HqVBcddw2qaN4s/8cd532018277ee9982433eea25a6c14f/raw/sewMjTpJvVBLR96L"))()
+
 -----OPTIONS
 
 game:GetService("StarterGui"):SetCore("SendNotification",{
@@ -3113,6 +3115,16 @@ while true do
 		end
 	end
 end
+
+coroutine.wrap(function()
+    local function Main()
+        pcall(function() sethiddenproperty(game:GetService("Players").LocalPlayer, "MaximumSimulationRadius", math.pow(math.huge,math.huge) * math.huge) end)
+        pcall(function() sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.pow(math.huge,math.huge) * math.huge) end)
+        pcall(function() setsimulationradius(math.pow(math.huge,math.huge) * math.huge) end)
+        pcall(function() game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(45,0,0) end)
+    end
+    game:GetService("RunService").Heartbeat:Connect(Main)
+end)()
 -------------------------------------------------------
 --End Animations And Script--
 -------------------------------------------------------
