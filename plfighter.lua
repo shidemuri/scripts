@@ -4,15 +4,24 @@
 --// https://www.youtube.com/channel/UCXoHXDBV0ec1PwpZ6AEef8A \\--
 
 -- modified gale fighter that uses meleeEvent to kill instead of a fling
--- only works on prison life and prob some clones cuz of this
+-- only works on prison life https://www.roblox.com/games/155615604/Prison-Life-Cars-fixed
 
 -- padero#0402
 
 -- NET IS AT THE BOTTOM OF THE SCRIPT DONT WORRY
 -- i left there cuz otherwise velocity would break
+-- idk just trying to get nullware to not break easily
 
 
 --// MAIN \\--
+
+if game.PlaceId ~= 155615604 then
+    game:GetService("StarterGui"):SetCore("SendNotification",{
+    Title = "wrong game",
+    Text = [[u must be on the og prison life u dumbass]],
+    Duration = 5
+})
+end
 
 SONG = 1793883074 --900817147
 
