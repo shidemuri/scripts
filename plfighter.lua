@@ -25,11 +25,6 @@ end
 
 SONG = 1793883074 --900817147
 
-local oldcfr = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-local a = workspace.Remote.loadchar:InvokeServer(game.Players.LocalPlayer, "Black")
-game.Players.LocalPlayer.CharacterAdded:Wait()
-game.Players.LocalPlayer.Character:WaitForChild('HumanoidRootPart').CFrame = oldcfr
-
 getgenv().Nullware_ReanimateConfiguration = {
 	["Netless"] = true, --Toggles Netless.
 	["Anti-Fling"] = false, --Toggles Anti-Fling.
