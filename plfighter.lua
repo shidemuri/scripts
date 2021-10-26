@@ -1,4 +1,12 @@
---loadstring(game:HttpGet(('https://raw.githubusercontent.com/shidemuri/scripts/main/plfighter.lua'),true))()
+--[[
+
+getgenv().SONG = "900817147"
+
+--psst 1793883074
+
+loadstring(game:HttpGet(('https://raw.githubusercontent.com/shidemuri/scripts/main/plfighter.lua'),true))()
+
+]]
 
 --// Uses Mizt's bypass, Converted by SeriousSire \\--
 --// https://www.youtube.com/channel/UCXoHXDBV0ec1PwpZ6AEef8A \\--
@@ -23,7 +31,7 @@ if game.PlaceId ~= 155615604 then
 })
 end
 
-SONG = 1793883074 --900817147
+--SONG = 1793883074 --900817147
 
 getgenv().Nullware_ReanimateConfiguration = {
 	["Netless"] = true, --Toggles Netless.
