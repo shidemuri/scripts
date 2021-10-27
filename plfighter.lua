@@ -1,8 +1,8 @@
 --[[
 
-getgenv().SONG = "1793883074"
+getgenv().SONG = "900817147"
 
---psst 900817147
+--psst 1793883074
 
 loadstring(game:HttpGet(('https://raw.githubusercontent.com/shidemuri/scripts/main/plfighter.lua'),true))()
 
