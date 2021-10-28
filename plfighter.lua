@@ -15,6 +15,8 @@ loadstring(game:HttpGet(('https://raw.githubusercontent.com/shidemuri/scripts/ma
 -- only works on prison life https://www.roblox.com/games/155615604/Prison-Life-Cars-fixed
 
 -- padero#0402
+-- NeighborlyBipbip / nekopara_enjoyer
+-- u/Crater2017
 
 -- NET IS AT THE BOTTOM OF THE SCRIPT DONT WORRY
 -- i left there cuz otherwise velocity would break
