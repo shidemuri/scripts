@@ -33,6 +33,8 @@ end
 
 --SONG = 1793883074 --900817147
 
+if not getgenv().SONG then SONG = "900817147" end
+
 getgenv().Nullware_ReanimateConfiguration = {
 	["Netless"] = true, --Toggles Netless.
 	["Anti-Fling"] = false, --Toggles Anti-Fling.
