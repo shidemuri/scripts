@@ -6,10 +6,14 @@
 
   i originally saved this here for my neko v4 convert but feel free to use it however you want
 
-  usage: <function>(<Model>the thing that has all the baseparts u want to weld, <BasePart> the core part that everything will be weld to)
+  usage: <function>(<Model>the thing that has all the baseparts u want to weld, <BasePart (THE NAME OF IT)> the core part that everything will be weld to, <BoolValue> break joints (refer to below))
+
+  if you want to use this in yo code then use this code:
+
+  
 
 ]]
-	local NEVER_BREAK_JOINTS = false -- If you set this to true it will never break joints (this can create some welding issues, but can save stuff like hinges).
+	local NEVER_BREAK_JOINTS = breakjoints -- If you set this to true it will never break joints (this can create some welding issues, but can save stuff like hinges).
 
 
 	local function CallOnChildren(Instance, FunctionToCall)
@@ -145,7 +149,7 @@
 		local Tool = GetNearestParent(model, "Tool")
 	
 		local Parts = GetBricks(model)
-		local PrimaryPart = model.REF
+		local PrimaryPart = model[basepart]
 	
 		if PrimaryPart then
 			WeldParts(Parts, PrimaryPart, "Weld")
