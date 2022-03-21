@@ -1,18 +1,18 @@
---[[
+--
+--  
+--  I DIDNT MAKE THIS SCRIPT
+--  THE ORIGINAL ONE WAS MADE BY https://www.roblox.com/users/4397833/profile/
+--  Original script: https://www.roblox.com/library/181259635/qPerfectionWeld-Perfect-welding-for-EVERY-situat
+--
+--  i originally saved this here for my neko v4 convert but feel free to use it however you want
+--
+--  usage: <function>(<Model>the thing that has all the baseparts u want to weld, <BasePart (THE NAME OF IT)> the core part that everything will be weld to, <BoolValue> break joints (refer to below))
+--
+--if you want to use this in yo code then use this code:
+
   
-  I DIDNT MAKE THIS SCRIPT
-  THE ORIGINAL ONE WAS MADE BY https://www.roblox.com/users/4397833/profile/
-  Original script: https://www.roblox.com/library/181259635/qPerfectionWeld-Perfect-welding-for-EVERY-situat
 
-  i originally saved this here for my neko v4 convert but feel free to use it however you want
-
-  usage: <function>(<Model>the thing that has all the baseparts u want to weld, <BasePart (THE NAME OF IT)> the core part that everything will be weld to, <BoolValue> break joints (refer to below))
-
-  if you want to use this in yo code then use this code:
-
-  
-
-]]
+--
 	local NEVER_BREAK_JOINTS = breakjoints -- If you set this to true it will never break joints (this can create some welding issues, but can save stuff like hinges).
 
 
