@@ -269,7 +269,7 @@ function module:New(name)
 
                 button1_2.Name = name
                 button1_2.Parent = ScrollingFrame
-                button1_2.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
+                button1_2.BackgroundColor3 = Color3.fromRGB(44,44,44)
                 button1_2.Position = UDim2.new(0.055555556, 0, -3.76760227e-07, 0)
                 button1_2.Size = UDim2.new(0, 385, 0, 39)
                 button1_2.Font = Enum.Font.Roboto
@@ -304,10 +304,10 @@ function module:New(name)
                     clicked = not clicked
                     if clicked then
                         button1_2.Text = desc
-                        button1_2.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+                        button1_2.BackgroundColor3 = Color3.fromRGB(78, 78, 78)
                     else 
                         button1_2.Text = name
-                        button1_2.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
+                        button1_2.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
                     end
                 end)
             end
