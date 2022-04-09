@@ -132,7 +132,7 @@ function module:New(name)
         function window:SetMainTab(tab)
             if tab:IsA('Frame') and tab.Parent == Main then
                 for _,v in next, Main:GetChildren() do
-                    if v.Name == 'Tab' then v.Visible = false end
+                    if v.Name == tab.Name then v.Visible = false end
                 end
             end
             tab.Visible = true
@@ -141,7 +141,7 @@ function module:New(name)
             local tab = {}
             local Tab = Instance.new("Frame")
             local UICorner_2 = Instance.new("UICorner")
-            Tab.Name = "Tab"
+            Tab.Name = namee
             Tab.Parent = Main
             Tab.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
             Tab.BackgroundTransparency = 1.000
@@ -177,7 +177,7 @@ function module:New(name)
 
             TabSwitch1.MouseButton1Click:Connect(function()
                 for _,v in pairs(Main:GetChildren()) do
-                    if v.Name == 'Tab' then
+                    if v.Name == Tab.Name then
                         v.Visible = false
                     end
                 end
@@ -297,6 +297,8 @@ function module:New(name)
                 ImageButton.Size = UDim2.new(0, 20, 0, 21)
                 ImageButton.Image = "http://www.roblox.com/asset/?id=6294110112"
 
+                ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+39)
+
                 local clicked = false
 
                 button1_2.MouseButton1Click:Connect(callback)
@@ -304,9 +306,11 @@ function module:New(name)
                     clicked = not clicked
                     if clicked then
                         button1_2.Text = desc
+                        button1_2.TextSize = 15.000
                         button1_2.BackgroundColor3 = Color3.fromRGB(78, 78, 78)
                     else 
                         button1_2.Text = name
+                        button1_2.TextSize = 22.000
                         button1_2.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
                     end
                 end)
