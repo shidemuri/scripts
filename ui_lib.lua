@@ -263,7 +263,7 @@ function module:New(name)
 				end)
             end
 
-            function tab:NewButton(name, callback)
+            function tab:NewButton(name, desc, callback)
                 local button1_2 = Instance.new("TextButton")
                 local UICorner_4 = Instance.new("UICorner")
 
@@ -288,7 +288,28 @@ function module:New(name)
                 UIStroke.Transparency = 0
                 UIStroke.Parent = button1_2
 
+                local ImageButton = Instance.new("ImageButton")
+
+                ImageButton.Parent = button1_2
+                ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                ImageButton.BackgroundTransparency = 1.000
+                ImageButton.Position = UDim2.new(0.0285714287, 0, 0.230769247, 0)
+                ImageButton.Size = UDim2.new(0, 20, 0, 21)
+                ImageButton.Image = "http://www.roblox.com/asset/?id=6294110112"
+
+                local clicked = false
+
                 button1_2.MouseButton1Click:Connect(callback)
+                ImageButton.MouseButton1Click:Connect(function()
+                    clicked = not clicked
+                    if clicked then
+                        button1_2.Text = desc
+                        button1_2.BackgroundColor3 = Color3.fromRGB(99, 99, 99)
+                    else 
+                        button1_2.Text = name
+                        button1_2.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
+                    end
+                end)
             end
             tab.Tab = Tab
             return tab
