@@ -54,7 +54,7 @@ function Dragify(Frame)
 end
 function module:New(name)
     local window = {}
-        local ScreenGui = Instance.new("ScreenGui")
+        ScreenGui = Instance.new("ScreenGui")
         ScreenGui.Parent = game:GetService("CoreGui")
         protect(ScreenGui)
         ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -130,12 +130,12 @@ function module:New(name)
         UIListLayout_2.VerticalAlignment = Enum.VerticalAlignment.Center
         UIListLayout_2.Padding = UDim.new(0, 13)
         function window:SetMainTab(tab)
-            if tab:IsA('Frame') and tab.Parent == Main then
+            if tab.Tab:IsA('Frame') and tab.Tab.Parent == Main then
                 for _,v in next, Main:GetChildren() do
-                    if v.Name == tab.Name then v.Visible = false end
+                    if v.Name == tab.Tab.Name then v.Visible = false end
                 end
             end
-            tab.Visible = true
+            tab.Tab.Visible = true
         end
         function window:NewTab(namee)
             local tab = {}
@@ -153,7 +153,7 @@ function module:New(name)
             UICorner_2.Parent = Tab
 
             local TabSwitch1 = Instance.new("TextButton")
-            TabSwitch1.Name = "TabSwitch1"
+            TabSwitch1.Name = namee
             TabSwitch1.Parent = tabbuttons
             TabSwitch1.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
             TabSwitch1.Position = UDim2.new(0, 0, 0.109999999, 0)
@@ -177,14 +177,14 @@ function module:New(name)
 
             TabSwitch1.MouseButton1Click:Connect(function()
                 for _,v in pairs(Main:GetChildren()) do
-                    if v.Name == Tab.Name then
+                    if v:IsA('Frame') and v.Name ~= 'tab buttons' then
                         v.Visible = false
                     end
                 end
                 Tab.Visible = true
             end)
 
-            ScrollingFrame = Instance.new("ScrollingFrame")
+            local ScrollingFrame = Instance.new("ScrollingFrame")
             ScrollingFrame.Parent = Tab
             ScrollingFrame.Active = true
             ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -229,6 +229,7 @@ function module:New(name)
                 label.TextSize = 15.000
                 UICorner_3.CornerRadius = UDim.new(0, 5)
                 UICorner_3.Parent = label
+                ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
             end
 
             function tab:NewSearchBar()
@@ -297,7 +298,7 @@ function module:New(name)
                 ImageButton.Size = UDim2.new(0, 20, 0, 21)
                 ImageButton.Image = "http://www.roblox.com/asset/?id=6294110112"
 
-                ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+39)
+                ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
 
                 local clicked = false
 
@@ -318,11 +319,12 @@ function module:New(name)
             tab.Tab = Tab
             return tab
         end
+
     function window:Hide()
-        ScreenGui.Visible = false
+        Main.Visible = false
     end
     function window:Show()
-        ScreenGui.Visible = true
+        Main.Visible = true
     end
     return window
 end
