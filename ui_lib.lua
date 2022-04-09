@@ -318,6 +318,12 @@ function module:New(name)
             tab.Tab = Tab
             return tab
         end
+    function window:Hide()
+        ScreenGui.Visible = false
+    end
+    function window:Show()
+        ScreenGui.Visible = true
+    end
     return window
 end
 return module
