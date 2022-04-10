@@ -53,7 +53,7 @@ padero#0001
 
 module = {}
 
-if not (syn or protect_gui or gethui) then
+if not (syn or protect_gui) then
     warn("WARNING: protect_gui is not supported by your exploit. Using generic polyfill instead.")
     protect = function() end
 else
