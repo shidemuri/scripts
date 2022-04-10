@@ -54,24 +54,15 @@ padero#0001
 module = {}
 
 if not (syn or protect_gui or gethui) then
-    warn("WARNING: protect_gui / gethui is not supported by your exploit. Using generic polyfill instead.")
-    protect = function(screengui)
-		screengui.Parent = game:GetService('CoreGui')
-		coroutine.wrap(function()
-			while task.wait() and screengui do
-				screengui.Name = game:GetService('HttpService'):GenerateGUID()
-			end
-		end)()
-	end
+    warn("WARNING: protect_gui is not supported by your exploit. Using generic polyfill instead.")
+    protect = function() end
 else
     if syn then 
 		protect = syn.protect_gui 
 	elseif protect_gui then 
 		protect = protect_gui
-	else protect = function(s) 
-		s.Parent = gethui() 
 	end
-end end
+end
 
 function tween(obj, tweeninfo, goal)
 	local t = game:GetService('TweenService'):Create(obj, tweeninfo, goal)
@@ -117,6 +108,7 @@ function module:New(name)
     local window = {}
         ScreenGui = Instance.new("ScreenGui")
 		ScreenGui.Parent = game:GetService("CoreGui")
+		ScreenGui.Name = name
         protect(ScreenGui)
         ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
