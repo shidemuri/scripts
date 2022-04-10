@@ -31,6 +31,7 @@ atama wo tsukande kuttsuite
 zugaikotsu wo tokashiteiku n da
 noumiso wo tabetsukushite
 zoushokushiteku no da
+
 emono wo sagashi chikazuite
 ashi de tsukande mochiageru
 takai tokoro kara otoshi
@@ -252,7 +253,7 @@ function module:New(name)
             tabbutton.Font = Enum.Font.Ubuntu
             tabbutton.Text = namee
             tabbutton.TextColor3 = Color3.fromRGB(255, 255, 255)
-            tabbutton.TextSize = 22.000
+            tabbutton.TextSize = 17.000
 
             local UICorner = Instance.new("UICorner")
             UICorner.CornerRadius = UDim.new(0, 5)
@@ -323,7 +324,7 @@ function module:New(name)
                 label.Font = Enum.Font.Roboto
                 label.Text = text
                 label.TextColor3 = Color3.fromRGB(255,255,255)
-                label.TextSize = 15.000
+                label.TextSize = 14.000
                 UICorner_3.CornerRadius = UDim.new(0, 5)
                 UICorner_3.Parent = label
                 ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
@@ -386,7 +387,7 @@ function module:New(name)
                 button.Font = Enum.Font.Roboto
                 button.Text = name
                 button.TextColor3 = Color3.fromRGB(255,255,255)
-                button.TextSize = 22.000
+                button.TextSize = 17.000
 
                 butcorner.CornerRadius = UDim.new(0, 5)
                 butcorner.Name = "butcorner"
@@ -412,11 +413,11 @@ function module:New(name)
                     clicked = not clicked
                     if clicked then
                         button.Text = desc
-                        button.TextSize = 15.000
+                        button.TextSize = 13.000
                         button.BackgroundColor3 = Color3.fromRGB(53, 53, 82)
                     else 
                         button.Text = name
-                        button.TextSize = 22.000
+                        button.TextSize = 17.000
                         button.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
                     end
                 end)
