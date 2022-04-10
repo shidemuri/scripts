@@ -62,73 +62,69 @@ function module:New(name)
         local Main = Instance.new("Frame")
         Main.Name = "Main"
         Main.Parent = ScreenGui
-        Main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+        Main.BackgroundColor3 = Color3.fromRGB(38, 45, 71)
         Main.BorderColor3 = Color3.fromRGB(100, 100, 100)
-        Main.Position = UDim2.new(0.335526317, 0, 0.324372768, 0)
-        Main.Size = UDim2.new(0, 423, 0, 304)
+        Main.Position = UDim2.new(0.341675043, 0, 0.403705865, 0)
+        Main.Size = UDim2.new(0, 602, 0, 403)
 
         local UIStroke = Instance.new('UIStroke')
         UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-        UIStroke.Color = Color3.new(0, 0.8, 1)
+        UIStroke.Color = Color3.fromRGB(102, 61, 255)
         UIStroke.LineJoinMode = Enum.LineJoinMode.Round
         UIStroke.Thickness = 2.5
         UIStroke.Transparency = 0
         UIStroke.Parent = Main
 
         Dragify(Main)
-        local ImageLabel = Instance.new("ImageLabel")
-        local UICorner_6 = Instance.new("UICorner")
-        ImageLabel.Parent = Main
-        ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        ImageLabel.Position = UDim2.new(-0.0002643466, 0, 0.141350254, 0)
-        ImageLabel.Size = UDim2.new(0, 423, 0, 261)
-        ImageLabel.ZIndex = 0
-        ImageLabel.Image = "http://www.roblox.com/asset/?id=2062021684"
-        ImageLabel.ImageColor3 = Color3.fromRGB(17, 17, 17)
-
-        local UIStroke = Instance.new('UIStroke')
-        UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-        UIStroke.Color = Color3.new(0, 0.8, 1)
-        UIStroke.LineJoinMode = Enum.LineJoinMode.Round
-        UIStroke.Thickness = 2.5
-        UIStroke.Transparency = 0
-        UIStroke.Parent = ImageLabel
-
-        UICorner_6.CornerRadius = UDim.new(0, 5)
-        UICorner_6.Parent = ImageLabel
 
         local UICorner = Instance.new("UICorner")
         UICorner.CornerRadius = UDim.new(0, 5)
         UICorner.Parent = Main
 
         local Title = Instance.new("TextLabel")
-        Title.Name = name or 'cool ui lib'
+        Title.Name = name or ''
         Title.Parent = Main
         Title.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
         Title.BackgroundTransparency = 1.000
         Title.Position = UDim2.new(0.0307328608, 0, 0, 0)
         Title.Size = UDim2.new(0, 410, 0, 37)
         Title.Font = Enum.Font.SourceSans
-        Title.Text = name or 'cool ui lib'
-        Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-        Title.TextSize = 35.000
+        Title.Text = name or ''
+        Title.TextColor3 = Color3.fromRGB(255,255,255)
+        Title.TextSize = 25.000
         Title.TextXAlignment = Enum.TextXAlignment.Left
 
-        local tabbuttons = Instance.new("Frame")
-        local UIListLayout_2 = Instance.new("UIListLayout")
+        local tabbuttons = Instance.new("ScrollingFrame")
+        local UIListLayout = Instance.new("UIListLayout")
 
         tabbuttons.Name = "tab buttons"
         tabbuttons.Parent = Main
+        tabbuttons.Active = true
+        tabbuttons.ScrollBarImageColor3 = Color3.fromRGB(69, 69, 107)
         tabbuttons.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        tabbuttons.BackgroundTransparency = 1.000
-        tabbuttons.Position = UDim2.new(0.0141843967, 0, 0.835526228, 0)
-        tabbuttons.Size = UDim2.new(0, 410, 0, 50)
+        tabbuttons.BackgroundColor3 = Color3.fromRGB(26, 32, 58)
+        tabbuttons.BorderSizePixel = 0
+        tabbuttons.Position = UDim2.new(0, 0, 0.0918114111, 0)
+        tabbuttons.Size = UDim2.new(0, 182, 0, 366)
 
-        UIListLayout_2.Parent = tabbuttons
-        UIListLayout_2.FillDirection = Enum.FillDirection.Horizontal
-        UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
-        UIListLayout_2.VerticalAlignment = Enum.VerticalAlignment.Center
-        UIListLayout_2.Padding = UDim.new(0, 13)
+        local tabspacing = Instance.new("TextButton")
+        tabspacing.Name = "tabspacing"
+        tabspacing.Parent = tabbuttons
+        tabspacing.Active = false
+        tabspacing.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
+        tabspacing.BackgroundTransparency = 1.000
+        tabspacing.Position = UDim2.new(0.0449172594, 0, -3.76760227e-07, 0)
+        tabspacing.Selectable = false
+        tabspacing.Size = UDim2.new(0, 385, 0, 1)
+        tabspacing.Font = Enum.Font.Roboto
+        tabspacing.Text = " "
+        tabspacing.TextColor3 = Color3.fromRGB(255, 255, 255)
+        tabspacing.TextSize = 22.000
+
+        UIListLayout.Parent = tabbuttons
+        UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+        UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+        UIListLayout.Padding = UDim.new(0, 13)
         function window:SetMainTab(tab)
             if tab.Tab:IsA('Frame') and tab.Tab.Parent == Main then
                 for _,v in next, Main:GetChildren() do
@@ -143,39 +139,30 @@ function module:New(name)
             local UICorner_2 = Instance.new("UICorner")
             Tab.Name = namee
             Tab.Parent = Main
-            Tab.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-            Tab.BackgroundTransparency = 1.000
-            Tab.Position = UDim2.new(-0.000171124935, 0, 0.136029392, 0)
-            Tab.Size = UDim2.new(0, 423, 0, 262)
+            Tab.BackgroundColor3 = Color3.fromRGB(26,32,58)
+            Tab.Position = UDim2.new(0.302325577, 0, 0.0918114111, 0)
+            Tab.Size = UDim2.new(0, 420, 0, 365)
             Tab.Visible = false
 
             UICorner_2.CornerRadius = UDim.new(0, 5)
             UICorner_2.Parent = Tab
 
-            local TabSwitch1 = Instance.new("TextButton")
-            TabSwitch1.Name = namee
-            TabSwitch1.Parent = tabbuttons
-            TabSwitch1.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
-            TabSwitch1.Position = UDim2.new(0, 0, 0.109999999, 0)
-            TabSwitch1.Size = UDim2.new(0, 128, 0, 39)
-            TabSwitch1.Font = Enum.Font.Roboto
-            TabSwitch1.Text = namee
-            TabSwitch1.TextColor3 = Color3.fromRGB(255, 255, 255)
-            TabSwitch1.TextSize = 22.000
+            local tabbutton = Instance.new("TextButton")
+            tabbutton.Name = "tabbutton"
+            tabbutton.Parent = tabbuttons
+            tabbutton.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
+            tabbutton.Position = UDim2.new(0.0405405387, 0, 0.0399999991, 0)
+            tabbutton.Size = UDim2.new(0, 149, 0, 39)
+            tabbutton.Font = Enum.Font.Ubuntu
+            tabbutton.Text = namee
+            tabbutton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabbutton.TextSize = 22.000
 
             local UICorner = Instance.new("UICorner")
             UICorner.CornerRadius = UDim.new(0, 5)
-            UICorner.Parent = TabSwitch1
+            UICorner.Parent = tabbutton
 
-            local UIStroke = Instance.new('UIStroke')
-            UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-            UIStroke.Color = Color3.new(198, 198, 198)
-            UIStroke.LineJoinMode = Enum.LineJoinMode.Round
-            UIStroke.Thickness = 1
-            UIStroke.Transparency = 0
-            UIStroke.Parent = TabSwitch1
-
-            TabSwitch1.MouseButton1Click:Connect(function()
+            tabbutton.MouseButton1Click:Connect(function()
                 for _,v in pairs(Main:GetChildren()) do
                     if v:IsA('Frame') and v.Name ~= 'tab buttons' then
                         v.Visible = false
@@ -187,13 +174,27 @@ function module:New(name)
             local ScrollingFrame = Instance.new("ScrollingFrame")
             ScrollingFrame.Parent = Tab
             ScrollingFrame.Active = true
+            ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(69, 69, 107)
             ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ScrollingFrame.BackgroundTransparency = 1.000
             ScrollingFrame.BorderColor3 = Color3.fromRGB(27, 42, 53)
             ScrollingFrame.BorderSizePixel = 0
-            ScrollingFrame.Position = UDim2.new(0, 0, 0.183206111, 0)
-            ScrollingFrame.Size = UDim2.new(0, 423, 0, 162)
+            ScrollingFrame.Size = UDim2.new(0, 420, 0, 334)
+            ScrollingFrame.Position = UDim2.new(0, 0, 0.082, 0)
             ScrollingFrame.CanvasSize = UDim2.new(0, 0, 15, 0)
+            Tab.ChildAdded:Connect(function(child)
+                if child.Name == 'SearchBar' then 
+                    print(1)
+                    ScrollingFrame.Size = UDim2.new(0, 420, 0, 298)
+                    ScrollingFrame.Position = UDim2.new(0, 0, 0.183206141, 0)
+                end
+            end)
+            Tab.ChildRemoved:Connect(function(child)
+                if child.Name == 'SearchBar' then 
+                    ScrollingFrame.Size = UDim2.new(0, 420, 0, 334)
+                    ScrollingFrame.Position = UDim2.new(0, 0, 0.082, 0)
+                end
+            end)
 
             local UIListLayout = Instance.new("UIListLayout")
             UIListLayout.Parent = ScrollingFrame
@@ -201,31 +202,31 @@ function module:New(name)
             UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
             UIListLayout.Padding = UDim.new(0, 7)
 
-            local button1 = Instance.new("TextButton")
-            button1.Name = "decoylmao"
-            button1.Parent = ScrollingFrame
-            button1.Active = false
-            button1.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
-            button1.BackgroundTransparency = 1.000
-            button1.Position = UDim2.new(0.0449172594, 0, -3.76760227e-07, 0)
-            button1.Selectable = false
-            button1.Size = UDim2.new(0, 385, 0, 1)
-            button1.Font = Enum.Font.Roboto
-            button1.Text = " "
-            button1.TextColor3 = Color3.fromRGB(255, 255, 255)
-            button1.TextSize = 22.000 --this literally only gives a space to the first button
+            local tabspacing = Instance.new("TextButton")
+            tabspacing.Name = "tabspacing"
+            tabspacing.Parent = ScrollingFrame
+            tabspacing.Active = false
+            tabspacing.BackgroundColor3 = Color3.fromRGB(66, 66, 66)
+            tabspacing.BackgroundTransparency = 1.000
+            tabspacing.Position = UDim2.new(0.0449172594, 0, -3.76760227e-07, 0)
+            tabspacing.Selectable = false
+            tabspacing.Size = UDim2.new(0, 385, 0, 1)
+            tabspacing.Font = Enum.Font.Roboto
+            tabspacing.Text = " "
+            tabspacing.TextColor3 = Color3.fromRGB(255, 255, 255)
+            tabspacing.TextSize = 22.000
 
             function tab:NewLabel(text)
                 local label = Instance.new("TextLabel")
                 local UICorner_3 = Instance.new("UICorner")
                 label.Name = name
                 label.Parent = ScrollingFrame
-                label.BackgroundColor3 = Color3.fromRGB(104, 104, 104)
-                label.Position = UDim2.new(0, 0, -0.0249363855, 0)
+                label.BackgroundColor3 = Color3.fromRGB(70, 70, 224)
+                label.Position = UDim2.new(0.150118202, 0, 0.000254076178, 0)
                 label.Size = UDim2.new(0, 385, 0, 39)
                 label.Font = Enum.Font.Roboto
                 label.Text = text
-                label.TextColor3 = Color3.fromRGB(255, 255, 255)
+                label.TextColor3 = Color3.fromRGB(255,255,255)
                 label.TextSize = 15.000
                 UICorner_3.CornerRadius = UDim.new(0, 5)
                 UICorner_3.Parent = label
@@ -238,8 +239,9 @@ function module:New(name)
 
                 SearchBar.Name = "SearchBar"
                 SearchBar.Parent = Tab
-                SearchBar.BackgroundColor3 = Color3.fromRGB(74, 74, 74)
+                SearchBar.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
                 SearchBar.Position = UDim2.new(0.0309039894, 0, 0.0229007639, 0)
+                SearchBar.BackgroundTransparency = 0.5
                 SearchBar.Size = UDim2.new(0, 396, 0, 34)
                 SearchBar.Font = Enum.Font.SourceSans
                 SearchBar.PlaceholderText = "search bar"
@@ -265,54 +267,50 @@ function module:New(name)
             end
 
             function tab:NewButton(name, desc, callback)
-                local button1_2 = Instance.new("TextButton")
-                local UICorner_4 = Instance.new("UICorner")
+                local button = Instance.new("TextButton")
+                local butcorner = Instance.new("UICorner")
 
-                button1_2.Name = name
-                button1_2.Parent = ScrollingFrame
-                button1_2.BackgroundColor3 = Color3.fromRGB(44,44,44)
-                button1_2.Position = UDim2.new(0.055555556, 0, -3.76760227e-07, 0)
-                button1_2.Size = UDim2.new(0, 385, 0, 39)
-                button1_2.Font = Enum.Font.Roboto
-                button1_2.Text = name
-                button1_2.TextColor3 = Color3.fromRGB(255, 255, 255)
-                button1_2.TextSize = 22.000
+                button.Name = name
+                button.Parent = ScrollingFrame
+                button.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
+    
+                button.Position = UDim2.new(0.150118202, 0, 0.000254076178, 0)
+                button.Size = UDim2.new(0, 385, 0, 39)
+                button.Font = Enum.Font.Roboto
+                button.Text = name
+                button.TextColor3 = Color3.fromRGB(255,255,255)
+                button.TextSize = 22.000
 
-                UICorner_4.CornerRadius = UDim.new(0, 5)
-                UICorner_4.Parent = button1_2
+                butcorner.CornerRadius = UDim.new(0, 5)
+                butcorner.Name = "butcorner"
+                butcorner.Parent = button
 
-                local UIStroke = Instance.new('UIStroke')
-                UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-                UIStroke.Color = Color3.new(198, 198, 198)
-                UIStroke.LineJoinMode = Enum.LineJoinMode.Round
-                UIStroke.Thickness = 1
-                UIStroke.Transparency = 0
-                UIStroke.Parent = button1_2
+                local infobutton = Instance.new("ImageButton")
 
-                local ImageButton = Instance.new("ImageButton")
-
-                ImageButton.Parent = button1_2
-                ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                ImageButton.BackgroundTransparency = 1.000
-                ImageButton.Position = UDim2.new(0.0285714287, 0, 0.230769247, 0)
-                ImageButton.Size = UDim2.new(0, 20, 0, 21)
-                ImageButton.Image = "http://www.roblox.com/asset/?id=6294110112"
+                infobutton.Name = "infobutton"
+                infobutton.Parent = button
+                infobutton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                infobutton.BackgroundTransparency = 1.000
+                infobutton.Position = UDim2.new(0.0285714287, 0, 0.230769247, 0)
+                infobutton.Size = UDim2.new(0, 20, 0, 21)
+                infobutton.Image = "http://www.roblox.com/asset/?id=6294110112"
 
                 ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
 
                 local clicked = false
 
-                button1_2.MouseButton1Click:Connect(callback)
-                ImageButton.MouseButton1Click:Connect(function()
+                button.MouseButton1Click:Connect(callback)
+
+                infobutton.MouseButton1Click:Connect(function()
                     clicked = not clicked
                     if clicked then
-                        button1_2.Text = desc
-                        button1_2.TextSize = 15.000
-                        button1_2.BackgroundColor3 = Color3.fromRGB(78, 78, 78)
+                        button.Text = desc
+                        button.TextSize = 15.000
+                        button.BackgroundColor3 = Color3.fromRGB(53, 53, 82)
                     else 
-                        button1_2.Text = name
-                        button1_2.TextSize = 22.000
-                        button1_2.BackgroundColor3 = Color3.fromRGB(44, 44, 44)
+                        button.Text = name
+                        button.TextSize = 22.000
+                        button.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
                     end
                 end)
             end
