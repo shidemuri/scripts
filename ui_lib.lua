@@ -1,9 +1,50 @@
 --[[
 
+sora wo miteiru to
+chuu ni uku nanika wo mitsuketa	
+yoku mitemiru to sore wa
+kyodai na kurage datta
+
+saizu wa hito no ookisa hodo
+denchuu yori mo takaku tondeiru	
+
+kono machi ni naze kita no ka
+nan no tame ni kita no ka
+soto wo aruku hito wa minn
+herumetto wo kabutteiru
+
+itsu kara iru no ka
+doko kara kita no ka
+dare mo shiranai
+genkaku de mo ki no sei de mo nai
+tashika ni soko ni iru
+
+mado wo miteiru to
+sora wo tobu nanika ga me ni tsuita
+mado wo akeru to sore wa
+kocchi ni chikazuitekita
+
+kasa wa chiisaku ashi wa nagai
+yoru ni naru to aojiroku hikaru no da
+
 atama wo tsukande kuttsuite
 zugaikotsu wo tokashiteiku n da
 noumiso wo tabetsukushite
 zoushokushiteku no da
+emono wo sagashi chikazuite
+ashi de tsukande mochiageru
+takai tokoro kara otoshi
+ikita mama tabeteku no
+
+atama wo tsukande kuttsuite
+zugaikotsu wo tokashiteiku n da
+noumiso wo tabetsukushite
+zoushokushiteku no da
+
+emono wo sagashi chikazuite
+ashi de tsukande mochiageru
+takai tokoro kara otoshi
+ikita mama tabeteku no
 
 padero#0001
 
@@ -94,6 +135,29 @@ function module:New(name)
         Title.TextSize = 25.000
         Title.TextXAlignment = Enum.TextXAlignment.Left
 
+        local close = Instance.new("ImageButton")
+        local min = Instance.new("ImageButton")
+        close.Name = "close"
+        close.Parent = Main
+        close.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        close.BackgroundTransparency = 1.000
+        close.Position = UDim2.new(0.936877131, 0, 0.0148883387, 0)
+        close.Size = UDim2.new(0, 25, 0, 25)
+        close.Image = "http://www.roblox.com/asset/?id=6236220207"
+
+        close.MouseButton1Click:Connect(function()
+            ScreenGui:Destroy()
+        end)
+
+        min.Name = "min"
+        min.Parent = Main
+        min.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        min.BackgroundTransparency = 1.000
+        min.Position = UDim2.new(0.877076447, 0, 0.0148883387, 0)
+        min.Size = UDim2.new(0, 25, 0, 25)
+        min.Image = "rbxassetid://8836139185"
+
+
         local tabbuttons = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
 
@@ -106,6 +170,38 @@ function module:New(name)
         tabbuttons.BorderSizePixel = 0
         tabbuttons.Position = UDim2.new(0, 0, 0.0918114111, 0)
         tabbuttons.Size = UDim2.new(0, 182, 0, 366)
+
+        local padding = Instance.new("UIPadding")
+        padding.PaddingTop = UDim.new(0, 0)
+        padding.Parent = Main
+
+        local minimized = false
+        local currenttab = nil
+
+        min.MouseButton1Click:Connect(function()
+            minimized = not minimized
+            if minimized then
+                for _,v in pairs(Main:GetChildren()) do
+                    if v:IsA('Frame') or v:IsA('ScrollingFrame') then
+                        if v.Visible == true then currenttab = v end
+                        v.Visible = false
+                    end
+                end
+                Main.Size = UDim2.new(0, 602, 0, 40)
+                padding.PaddingTop = UDim.new(0, 5)
+                Title.Position = UDim2.new(0.031,0,-0.12,0)
+               --Main.Position = UDim2.new(0.341675043, 0, 0.403705865, 0)
+                --min.Image = "rbxassetid://8836139185"
+            else
+                Main.Size = UDim2.new(0, 602, 0, 403)
+                if currenttab then currenttab.Visible = true end
+                tabbuttons.Visible = true
+                Title.Position = UDim2.new(0.031,0,0,0)
+                padding.PaddingTop = UDim.new(0, 0)
+                --Main.Position = UDim2.new(0.341675043, 0, 0.403705865, 0)
+                --min.Image = "rbxassetid://8836139185"
+            end
+        end)
 
         local tabspacing = Instance.new("TextButton")
         tabspacing.Name = "tabspacing"
@@ -234,6 +330,7 @@ function module:New(name)
             end
 
             function tab:NewSearchBar()
+                if Tab:FindFirstChild('SearchBar') then return end
                 local SearchBar = Instance.new("TextBox")
                 local UICorner_3 = Instance.new("UICorner")
 
@@ -248,6 +345,16 @@ function module:New(name)
                 SearchBar.Text = ""
                 SearchBar.TextColor3 = Color3.fromRGB(255, 255, 255)
                 SearchBar.TextSize = 20.000
+
+                local searchicon = Instance.new("ImageLabel")
+
+                searchicon.Name = "searchicon"
+                searchicon.Parent = SearchBar
+                searchicon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                searchicon.BackgroundTransparency = 1.000
+                searchicon.Position = UDim2.new(0.0379999988, 0, 0.230000004, 0)
+                searchicon.Size = UDim2.new(0, 20, 0, 20)
+                searchicon.Image = "rbxassetid://2804603863"
                 
                 UICorner_3.CornerRadius = UDim.new(0, 5)
                 UICorner_3.Parent = SearchBar
