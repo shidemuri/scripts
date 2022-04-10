@@ -53,15 +53,34 @@ padero#0001
 
 module = {}
 
-if not (syn or protect_gui) then
-    warn("protect_gui is not supported by your exploit. using empty polyfill instead.")
-    protect = function() end
+if not (syn or protect_gui or gethui) then
+    warn("WARNING: protect_gui / gethui is not supported by your exploit. Using generic polyfill instead.")
+    protect = function(screengui)
+		screengui.Parent = game:GetService('CoreGui')
+		coroutine.wrap(function()
+			while task.wait() and screengui do
+				screengui.Name = game:GetService('HttpService'):GenerateGUID()
+			end
+		end)()
+	end
 else
-    if syn then protect = syn.protect_gui else protect = protect_gui end
+    if syn then 
+		protect = syn.protect_gui 
+	elseif protect_gui then 
+		protect = protect_gui
+	else protect = function(s) 
+		s.Parent = gethui() 
+	end
+end end
+
+function tween(obj, tweeninfo, goal)
+	local t = game:GetService('TweenService'):Create(obj, tweeninfo, goal)
+	t:Play()
 end
+
 function Dragify(Frame)
 	local dragToggle = nil
-	local dragSpeed = 0
+	local dragSpeed = 0.1
 	local dragInput = nil
 	local dragStart = nil
 	local dragPos = nil
@@ -97,7 +116,7 @@ end
 function module:New(name)
     local window = {}
         ScreenGui = Instance.new("ScreenGui")
-        ScreenGui.Parent = game:GetService("CoreGui")
+		ScreenGui.Parent = game:GetService("CoreGui")
         protect(ScreenGui)
         ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -158,6 +177,26 @@ function module:New(name)
         min.Size = UDim2.new(0, 25, 0, 25)
         min.Image = "rbxassetid://8836139185"
 
+		local footer = Instance.new("TextLabel")
+		footer.Parent = Main
+		footer.Name = 'footer'
+		footer.Text = ''
+		footer.Position = UDim2.new(0, 20, 0, 380)
+		footer.TextXAlignment = Enum.TextXAlignment.Left
+		footer.Font = Enum.Font.Ubuntu
+		footer.TextSize = 20
+		footer.TextColor3 = Color3.fromRGB(255,255,255)
+
+		coroutine.wrap(function()
+		avatar = Instance.new("ImageLabel")
+		avatar.Parent = Main
+		avatar.Name = 'avatar'
+		avatar.Position = UDim2.new(0, 550, 0, 359)
+		avatar.Size = UDim2.new(0, 40, 0, 40)
+		avatar.BackgroundTransparency = 1
+		avatar.Image = game.Players:GetUserThumbnailAsync(game.Players.LocalPlayer.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size48x48)
+		Instance.new('UICorner', avatar).CornerRadius = UDim.new(0, 20)
+		end)()
 
         local tabbuttons = Instance.new("ScrollingFrame")
         local UIListLayout = Instance.new("UIListLayout")
@@ -170,7 +209,8 @@ function module:New(name)
         tabbuttons.BackgroundColor3 = Color3.fromRGB(26, 32, 58)
         tabbuttons.BorderSizePixel = 0
         tabbuttons.Position = UDim2.new(0, 0, 0.0918114111, 0)
-        tabbuttons.Size = UDim2.new(0, 182, 0, 366)
+        tabbuttons.Size = UDim2.new(0, 182, 0, 320)
+
 
         local padding = Instance.new("UIPadding")
         padding.PaddingTop = UDim.new(0, 0)
@@ -178,6 +218,18 @@ function module:New(name)
 
         local minimized = false
         local currenttab = nil
+
+		local greetings = Instance.new("TextLabel")
+		greetings.Parent = Main
+		greetings.Name = 'greetings'
+		greetings.Font = Enum.Font.Ubuntu
+		greetings.Text = 'Hello, ' .. game.Players.LocalPlayer.DisplayName
+		greetings.TextColor3 = Color3.fromRGB(255, 255, 255)
+		greetings.BackgroundTransparency = 1
+		greetings.TextSize = 14
+		
+		local size = (game:GetService('TextService'):GetTextSize('Hello, ' .. game.Players.LocalPlayer.DisplayName, 14, Enum.Font.Ubuntu, Vector2.new(Main.Size))).X
+		greetings.Position = UDim2.new(0, 580-size, 0, 381)
 
         min.MouseButton1Click:Connect(function()
             minimized = not minimized
@@ -191,6 +243,9 @@ function module:New(name)
                 Main.Size = UDim2.new(0, 602, 0, 40)
                 padding.PaddingTop = UDim.new(0, 5)
                 Title.Position = UDim2.new(0.031,0,-0.12,0)
+				footer.Visible = false
+				avatar.Visible = false
+				greetings.Visible = false
                --Main.Position = UDim2.new(0.341675043, 0, 0.403705865, 0)
                 --min.Image = "rbxassetid://8836139185"
             else
@@ -199,6 +254,9 @@ function module:New(name)
                 tabbuttons.Visible = true
                 Title.Position = UDim2.new(0.031,0,0,0)
                 padding.PaddingTop = UDim.new(0, 0)
+				footer.Visible = true
+				avatar.Visible = true
+				greetings.Visible = true
                 --Main.Position = UDim2.new(0.341675043, 0, 0.403705865, 0)
                 --min.Image = "rbxassetid://8836139185"
             end
@@ -238,8 +296,18 @@ function module:New(name)
             Tab.Parent = Main
             Tab.BackgroundColor3 = Color3.fromRGB(26,32,58)
             Tab.Position = UDim2.new(0.302325577, 0, 0.0918114111, 0)
-            Tab.Size = UDim2.new(0, 420, 0, 365)
+            Tab.Size = UDim2.new(0, 420, 0, 320)
             Tab.Visible = false
+
+			local currenttab = Instance.new("TextLabel")
+			currenttab.Parent = Tab
+			currenttab.Name = 'currenttab'
+			currenttab.Text = namee
+			currenttab.Position = UDim2.new(0, 20, 0, 11)
+			currenttab.TextXAlignment = Enum.TextXAlignment.Left
+			currenttab.TextSize = 14
+			currenttab.Font = Enum.Font.Ubuntu
+			currenttab.TextColor3 = Color3.fromRGB(255,255,255)
 
             UICorner_2.CornerRadius = UDim.new(0, 5)
             UICorner_2.Parent = Tab
@@ -254,6 +322,14 @@ function module:New(name)
             tabbutton.Text = namee
             tabbutton.TextColor3 = Color3.fromRGB(255, 255, 255)
             tabbutton.TextSize = 17.000
+			tabbutton.AutoButtonColor = false
+
+			tabbutton.MouseEnter:Connect(function()
+				tween(tabbutton,TweenInfo.new(0.4,Enum.EasingStyle.Linear),{BackgroundColor3 = Color3.fromRGB(103, 103, 158)})
+			end)
+			tabbutton.MouseLeave:Connect(function()
+				tween(tabbutton,TweenInfo.new(0.4,Enum.EasingStyle.Linear),{BackgroundColor3 = Color3.fromRGB(69, 69, 107)})
+			end)
 
             local UICorner = Instance.new("UICorner")
             UICorner.CornerRadius = UDim.new(0, 5)
@@ -271,24 +347,24 @@ function module:New(name)
             local ScrollingFrame = Instance.new("ScrollingFrame")
             ScrollingFrame.Parent = Tab
             ScrollingFrame.Active = true
+			ScrollingFrame.Size = UDim2.new(0, 420, 0, 261)
             ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(69, 69, 107)
             ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
             ScrollingFrame.BackgroundTransparency = 1.000
             ScrollingFrame.BorderColor3 = Color3.fromRGB(27, 42, 53)
             ScrollingFrame.BorderSizePixel = 0
-            ScrollingFrame.Size = UDim2.new(0, 420, 0, 334)
             ScrollingFrame.Position = UDim2.new(0, 0, 0.082, 0)
             ScrollingFrame.CanvasSize = UDim2.new(0, 0, 15, 0)
+			ScrollingFrame.Size = UDim2.new(0, 420, 0, 294)
             Tab.ChildAdded:Connect(function(child)
                 if child.Name == 'SearchBar' then 
-                    print(1)
-                    ScrollingFrame.Size = UDim2.new(0, 420, 0, 298)
+                    ScrollingFrame.Size = UDim2.new(0, 420, 0, 261)
                     ScrollingFrame.Position = UDim2.new(0, 0, 0.183206141, 0)
                 end
             end)
             Tab.ChildRemoved:Connect(function(child)
                 if child.Name == 'SearchBar' then 
-                    ScrollingFrame.Size = UDim2.new(0, 420, 0, 334)
+                    ScrollingFrame.Size = UDim2.new(0, 420, 0, 294)
                     ScrollingFrame.Position = UDim2.new(0, 0, 0.082, 0)
                 end
             end)
@@ -338,7 +414,7 @@ function module:New(name)
                 SearchBar.Name = "SearchBar"
                 SearchBar.Parent = Tab
                 SearchBar.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
-                SearchBar.Position = UDim2.new(0.0309039894, 0, 0.0229007639, 0)
+                SearchBar.Position = UDim2.new(0,12,0,21) --UDim2.new(0.0309039894, 0, 0.0229007639, 0)
                 SearchBar.BackgroundTransparency = 0.5
                 SearchBar.Size = UDim2.new(0, 396, 0, 34)
                 SearchBar.Font = Enum.Font.SourceSans
@@ -388,6 +464,7 @@ function module:New(name)
                 button.Text = name
                 button.TextColor3 = Color3.fromRGB(255,255,255)
                 button.TextSize = 17.000
+				button.AutoButtonColor = false
 
                 butcorner.CornerRadius = UDim.new(0, 5)
                 butcorner.Name = "butcorner"
@@ -406,6 +483,21 @@ function module:New(name)
                 ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
 
                 local clicked = false
+				local holding = false
+				button.MouseButton1Down:Connect(function()
+					if clicked then return end
+					if holding == false then holding = true end
+					tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(100, 100, 156)})
+				end)
+				button.MouseButton1Up:Connect(function()
+					if clicked then return end
+					if holding == true then holding = false end
+					tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(69, 69, 107)})
+				end)
+
+				button.MouseLeave:Connect(function()
+					if holding and not clicked then tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(69, 69, 107)}) end
+				end)
 
                 button.MouseButton1Click:Connect(callback)
 
@@ -414,11 +506,12 @@ function module:New(name)
                     if clicked then
                         button.Text = desc
                         button.TextSize = 13.000
-                        button.BackgroundColor3 = Color3.fromRGB(53, 53, 82)
+						tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(53, 53, 82)})
                     else 
                         button.Text = name
                         button.TextSize = 17.000
-                        button.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
+						tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(69, 69, 107)})
+
                     end
                 end)
             end
@@ -432,6 +525,9 @@ function module:New(name)
     function window:Show()
         Main.Visible = true
     end
+	function window:SetFooter(text)
+		footer.Text = text
+	end
     return window
 end
 return module
