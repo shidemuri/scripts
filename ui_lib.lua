@@ -520,6 +520,174 @@ function module:New(name)
 	function window:SetFooter(text)
 		footer.Text = text
 	end
+	function window:NewCommandBar(label)
+		local cmd = {}
+		local folder = Instance.new("Folder",ScreenGui)
+		local bar = Instance.new("Frame", folder)
+		local screensize = ScreenGui.AbsoluteSize
+		bar.Size = UDim2.new(0, screensize.X - (screensize.X/2), 0, 50)
+		bar.Position = UDim2.new(0, screensize.X/2, 0, screensize.Y - 50)
+		ScreenGui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
+			screensize = ScreenGui.AbsoluteSize
+			bar.Size = UDim2.new(0, screensize.X - (screensize.X/2), 0, 50)
+			bar.Position = UDim2.new(0, screensize.X/2, 0, screensize.Y - 50)
+		end)
+		bar.BackgroundColor3 = Color3.fromRGB(38, 45, 71)
+		bar.BackgroundTransparency = 0.4
+		bar.AnchorPoint = Vector2.new(0.5, 0)
+		bar.Transparency = 1
+		local crn = Instance.new("UICorner", bar)
+		crn.CornerRadius = UDim.new(0, 10)
+		local command = Instance.new("TextBox", bar)
+		command.Size = UDim2.new(0, bar.Size.X.Offset-15, 0, 40)
+		command.Position = UDim2.new(0, 6, 0, 6)
+		command.PlaceholderText = label;
+		command.Font = Enum.Font.Ubuntu
+		command.TextSize = 30
+		command.TextXAlignment = Enum.TextXAlignment.Left
+		command.BackgroundTransparency = 1
+		command.Text = ''
+		command.TextColor3 = Color3.fromRGB(255,255,255)
+		command.PlaceholderColor3 = Color3.fromRGB(156, 156, 156)
+		command.Transparency = 1
+
+		local cmds = Instance.new('ScrollingFrame', folder)
+		cmds.Size = UDim2.new(0, bar.Size.X.Offset, 0, 300)
+		cmds.Position = UDim2.new(0, screensize.X/4, 0, bar.Position.Y.Offset-300, 0)
+		cmds.Visible = true
+		cmds.BackgroundTransparency = 1
+		cmds.ScrollBarImageTransparency = 1
+		cmds.CanvasSize = UDim2.new(0,0,0,100)
+
+		local cmdlist = Instance.new('UIListLayout', cmds)
+		cmdlist.FillDirection = Enum.FillDirection.Vertical
+		cmdlist.HorizontalAlignment = Enum.HorizontalAlignment.Left
+		cmdlist.VerticalAlignment = Enum.VerticalAlignment.Bottom
+		cmdlist.Padding = UDim.new(0,15)
+
+		local hfix = Instance.new('UIAspectRatioConstraint', cmdlist)
+		hfix.AspectType = Enum.AspectType.ScaleWithParentSize
+		hfix.DominantAxis = Enum.DominantAxis.Height
+
+		game.Players.LocalPlayer:GetMouse().KeyDown:Connect(function(key)
+			if key == ';' then
+				coroutine.wrap(function()
+					tween(bar, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {BackgroundTransparency = 0.4})
+					tween(command, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {TextTransparency = 0})
+				end)()
+				task.wait() --because without this its gonna add a ; on the textbox
+				command:CaptureFocus()
+			end
+		end)
+
+		actualcmds = {}
+
+		command:GetPropertyChangedSignal('Text'):Connect(function()
+			coroutine.wrap(function(thing)
+				wait(10)
+				if command.Text == thing then
+					tween(bar, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {BackgroundTransparency = 1})
+					tween(command, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {TextTransparency = 1})
+					for _,v in next, cmds:GetChildren() do
+						if v:IsA('Frame') then v.Visible = false end
+					end
+					command:ReleaseFocus()
+				end
+			end)(command.Text)
+			for _,v in pairs(cmds:GetChildren()) do
+				if v:IsA("GuiObject") then
+					local Text = v.Name:lower()
+					if command.Text ~= '' and (Text:match(command.Text:lower()) or command.Text == "cmds") then -- or v == SearchBar then
+						v.Visible = true
+					else
+						v.Visible = false
+					end
+				end
+			end
+			cmds.CanvasPosition = Vector2.new(0, cmds.CanvasSize.Y.Offset)
+		end)
+
+		command.MouseEnter:Connect(function()
+			tween(bar, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {BackgroundTransparency = 0.4})
+			tween(command, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {TextTransparency = 0})
+		end)
+
+		--[[command.MouseLeave:Connect(function()
+			print(command.CursorPosition)
+			if command.CursorPosition > 0 then return end
+			tween(bar, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {BackgroundTransparency = 1})
+			tween(command, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {TextTransparency = 1})
+		end)]]
+
+		command.FocusLost:Connect(function(enter)
+			if enter then
+				local cmdz = {}
+				for v in string.gmatch(command.Text, "[^ ]+") do
+					table.insert(cmdz, v)
+					print(v)
+				end
+
+				local cmdd = table.remove(cmdz, 1)
+
+				for i,v in next, actualcmds do
+					if v[cmdd] then
+						print(2)
+						actualcmds[i][cmdd](cmdz)
+					end
+				end
+			end
+			for _,v in next, cmds:GetChildren() do
+				if v:IsA('Frame') then v.Visible = false end
+			end
+			tween(bar, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {BackgroundTransparency = 1})
+			tween(command, TweenInfo.new(0.1, Enum.EasingStyle.Linear), {TextTransparency = 1})
+		end)
+
+		function cmd:AddCommand(name, args, description, callback)
+			local thinggy = Instance.new('Frame', cmds)
+			thinggy.Size = UDim2.new(0, cmds.Size.X.Offset, 0, 120)
+			thinggy.BackgroundColor3 = Color3.fromRGB(38, 45, 71)
+			thinggy.Position = UDim2.new(0,0,0,0)
+			thinggy.Name = name
+			thinggy.Visible = false
+			local crn = Instance.new("UICorner", thinggy)
+			crn.CornerRadius = UDim.new(0, 5)
+			local namee = Instance.new('TextLabel', thinggy)
+			namee.Size = UDim2.new(0, thinggy.Size.X.Offset-15, 0, 30)
+			namee.Position = UDim2.new(0,10,0,0)
+			namee.Text = 'Command:  '..name
+			namee.Font = Enum.Font.SourceSans
+			namee.TextSize = 30
+			namee.TextXAlignment = Enum.TextXAlignment.Left
+			namee.BackgroundTransparency = 1
+			namee.TextColor3 = Color3.fromRGB(255,255,255)
+			local argss = Instance.new('TextLabel', thinggy)
+			argss.Size = UDim2.new(0, thinggy.Size.X.Offset-15, 0, 30)
+			argss.Position = UDim2.new(0,10,0,30)
+			if type(args) == "table" then
+				argss.Text = 'Arguments:  '..table.concat(args, ', ')
+			else
+				argss.Text = 'Arguments:  '..args
+			end
+			argss.Font = Enum.Font.SourceSans
+			argss.TextSize = 30;
+			argss.TextXAlignment = Enum.TextXAlignment.Left
+			argss.BackgroundTransparency = 1
+			argss.TextColor3 = Color3.fromRGB(255,255,255)
+			local descc = Instance.new('TextLabel', thinggy)
+			descc.Size = UDim2.new(0, thinggy.Size.X.Offset-15, 0, 30)
+			descc.Position = UDim2.new(0,10,0,60)
+			descc.Text = 'Description:  '..description
+			descc.Font = Enum.Font.SourceSans
+			descc.TextSize = 30
+			descc.TextXAlignment = Enum.TextXAlignment.Left
+			descc.BackgroundTransparency = 1
+			descc.TextColor3 = Color3.fromRGB(255,255,255)
+			cmds.CanvasSize = UDim2.fromOffset(0, cmds.CanvasSize.Y.Offset+130)
+			table.insert(actualcmds, {[name] = callback})
+		end
+		return cmd
+	end
     return window
 end
 return module
