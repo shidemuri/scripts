@@ -507,6 +507,84 @@ function module:New(name)
                     end
                 end)
             end
+			function tab:NewBoolButton(name, desc, callback)
+                local button = Instance.new("TextButton")
+                local butcorner = Instance.new("UICorner")
+
+                button.Name = name
+                button.Parent = ScrollingFrame
+                button.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
+    
+                button.Position = UDim2.new(0.150118202, 0, 0.000254076178, 0)
+                button.Size = UDim2.new(0, 385, 0, 39)
+                button.Font = Enum.Font.Roboto
+                button.Text = name
+                button.TextColor3 = Color3.fromRGB(255,255,255)
+                button.TextSize = 17.000
+				button.AutoButtonColor = false
+
+                butcorner.CornerRadius = UDim.new(0, 5)
+                butcorner.Name = "butcorner"
+                butcorner.Parent = button
+
+                local infobutton = Instance.new("ImageButton")
+
+                infobutton.Name = "infobutton"
+                infobutton.Parent = button
+                infobutton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                infobutton.BackgroundTransparency = 1.000
+                infobutton.Position = UDim2.new(0.0285714287, 0, 0.230769247, 0)
+                infobutton.Size = UDim2.new(0, 20, 0, 21)
+                infobutton.Image = "http://www.roblox.com/asset/?id=6294110112"
+
+                ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
+
+                local clicked = false
+				local holding = false
+
+                infobutton.MouseButton1Click:Connect(function()
+                    clicked = not clicked
+                    if clicked then
+                        button.Text = desc
+                        button.TextSize = 13.000
+						tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(53, 53, 82)})
+                    else 
+                        button.Text = name
+                        button.TextSize = 17.000
+						tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(69, 69, 107)})
+                    end
+                end)
+
+				local slider = Instance.new('Frame',button)
+				slider.Name = "slider"
+				slider.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+				slider.Size = UDim2.new(0, 25, 0, 10)
+				slider.Position = UDim2.new(0,button.Size.X.Offset - 40,0,15)
+				slider.BorderSizePixel = 0
+				local slidercorners = Instance.new("UICorner",slider)
+				slidercorners.CornerRadius = UDim.new(0,5)
+				local sliderthing = Instance.new('Frame',slider)
+				sliderthing.Size = UDim2.new(0,15,0,15)
+				sliderthing.Position = UDim2.new(0,-5,0,-3)
+				local sliderthingc = Instance.new("UICorner",sliderthing)
+				sliderthingc.CornerRadius = UDim.new(0,20)
+
+				local pressed = false
+
+				button.MouseButton1Click:Connect(function()
+					pressed = not pressed
+					if not pressed then
+						tween(sliderthing,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {Position = UDim2.new(0,-5,0,-3)})
+						tween(slider,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(200, 0, 0)})
+						callback(pressed)
+					else
+						tween(sliderthing,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {Position = UDim2.new(0,15,0,-3)})
+						tween(slider,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(0, 240, 0)})
+						callback(pressed)
+					end
+				end)
+
+            end
             tab.Tab = Tab
             return tab
         end
