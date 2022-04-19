@@ -583,8 +583,72 @@ function module:New(name)
 						callback(pressed)
 					end
 				end)
-
             end
+
+			function tab:NewTextBar(name, desc)
+				local button = Instance.new("Frame")
+                local butcorner = Instance.new("UICorner")
+
+                button.Name = name
+                button.Parent = ScrollingFrame
+                button.BackgroundColor3 = Color3.fromRGB(69, 69, 107)
+    
+                button.Position = UDim2.new(0.150118202, 0, 0.000254076178, 0)
+                button.Size = UDim2.new(0, 385, 0, 39)
+
+                butcorner.CornerRadius = UDim.new(0, 5)
+                butcorner.Name = "butcorner"
+                butcorner.Parent = button
+
+                local infobutton = Instance.new("ImageButton")
+
+                infobutton.Name = "infobutton"
+                infobutton.Parent = button
+                infobutton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                infobutton.BackgroundTransparency = 1.000
+                infobutton.Position = UDim2.new(0.0285714287, 0, 0.230769247, 0)
+                infobutton.Size = UDim2.new(0, 20, 0, 21)
+                infobutton.Image = "http://www.roblox.com/asset/?id=6294110112"
+
+                ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
+
+                local clicked = false
+				local box = Instance.new('TextBox',button)
+
+				box.Name = "box"
+				box.BackgroundColor3 = Color3.fromRGB(26,32,58)
+				box.Size = UDim2.new(0, button.Size.X.Offset - 45, 0, 33)
+				box.Position = UDim2.new(0, 40, 0, 3.5)
+				box.Font = Enum.Font.Roboto
+				box.PlaceholderText = name
+				box.PlaceholderColor3 = Color3.fromRGB(145, 145, 145)
+				box.Text = ''
+				box.TextXAlignment = Enum.TextXAlignment.Left
+				box.TextSize = 17.000
+				box.TextColor3 = Color3.fromRGB(255,255,255)
+				box.TextTruncate = Enum.TextTruncate.AtEnd
+
+				infobutton.MouseButton1Click:Connect(function()
+                    clicked = not clicked
+                    if clicked then
+                        box.PlaceholderText = desc
+                    else 
+                        box.PlaceholderText = name
+                    end
+                end)
+
+				local boxcorner = Instance.new("UICorner",box)
+				boxcorner.CornerRadius = UDim.new(0,5)
+				local boxpad = Instance.new("UIPadding",box)
+				boxpad.PaddingLeft = UDim.new(0,10)
+
+				local tab = {}
+				function tab:GetText()
+					return box.Text
+				end
+				return tab
+			end
+
             tab.Tab = Tab
             return tab
         end
