@@ -98,7 +98,6 @@ function module:New(name)
         ScreenGui = Instance.new("ScreenGui")
 		ScreenGui.Parent = game:GetService("CoreGui")
 		ScreenGui.Name = name
-        protect(ScreenGui)
         ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
         local Main = Instance.new("Frame")
@@ -261,14 +260,6 @@ function module:New(name)
         UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
         UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
         UIListLayout.Padding = UDim.new(0, 13)
-
-		local selected = Instance.new('Sound', Main)
-		selected.SoundId = 'rbxassetid://3314301672'
-
-		local tabselected = Instance.new('Sound', Main)
-		tabselected.SoundId = 'rbxassetid://6228296129'
-		tabselected.Volume = 1
-
         function window:SetMainTab(tab)
             if tab.Tab:IsA('Frame') and tab.Tab.Parent == Main then
                 for _,v in next, Main:GetChildren() do
@@ -330,7 +321,6 @@ function module:New(name)
                         v.Visible = false
                     end
                 end
-				tabselected:Play()
                 Tab.Visible = true
             end)
 
@@ -489,7 +479,7 @@ function module:New(name)
 					if holding and not clicked then tween(button,TweenInfo.new(0.2,Enum.EasingStyle.Linear), {BackgroundColor3 = Color3.fromRGB(69, 69, 107)}) end
 				end)
 
-                button.MouseButton1Click:Connect(function() selected:Play() callback() end)
+                button.MouseButton1Click:Connect(callback)
 
                 infobutton.MouseButton1Click:Connect(function()
                     clicked = not clicked
@@ -505,7 +495,7 @@ function module:New(name)
                     end
                 end)
             end
-			function tab:NewBoolButton(name, desc, callback, toggled)
+			function tab:NewBoolButton(name, desc, callback)
                 local button = Instance.new("TextButton")
                 local butcorner = Instance.new("UICorner")
 
@@ -538,10 +528,10 @@ function module:New(name)
                 ScrollingFrame.CanvasSize = UDim2.fromOffset(ScrollingFrame.CanvasSize.X.Offset,ScrollingFrame.CanvasSize.Y.Offset+50)
 
                 local clicked = false
+				local holding = false
 
                 infobutton.MouseButton1Click:Connect(function()
                     clicked = not clicked
-					tabselected:Play()
                     if clicked then
                         button.Text = desc
                         button.TextSize = 13.000
@@ -567,16 +557,7 @@ function module:New(name)
 				local sliderthingc = Instance.new("UICorner",sliderthing)
 				sliderthingc.CornerRadius = UDim.new(0,20)
 
-				local pressed = toggled or false
-
-				if not pressed then
-					sliderthing.Position = UDim2.new(0,-5,0,-3)
-					slider.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-				else
-					sliderthing.Position = UDim2.new(0,15,0,-3)
-					slider.BackgroundColor3 = Color3.fromRGB(0, 240, 0)
-					callback(pressed)
-				end
+				local pressed = false
 
 				button.MouseButton1Click:Connect(function()
 					pressed = not pressed
@@ -773,12 +754,14 @@ function module:New(name)
 				local cmdz = {}
 				for v in string.gmatch(command.Text, "[^ ]+") do
 					table.insert(cmdz, v)
+					print(v)
 				end
 
 				local cmdd = table.remove(cmdz, 1)
 
 				for i,v in next, actualcmds do
 					if v[cmdd] then
+						print(2)
 						actualcmds[i][cmdd](cmdz)
 					end
 				end
