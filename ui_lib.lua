@@ -95,11 +95,6 @@ function Dragify(Frame)
 end
 function module:New(name)
     local window = {}
-    local msg = Instance.new('Message', workspace)
-    msg.Text = [[my entire life on discord is a circus 
-https://youtu.be/pskoRCJytR8
--padero#0001]]
-game:GetService("Debris"):AddItem(msg,15)
         ScreenGui = Instance.new("ScreenGui")
 		ScreenGui.Parent = game:GetService("CoreGui")
 		ScreenGui.Name = name
