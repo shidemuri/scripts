@@ -53,8 +53,6 @@ padero#0001
 
 module = {}
 
-module = {}
-
 function tween(obj, tweeninfo, goal)
 	local t = game:GetService('TweenService'):Create(obj, tweeninfo, goal)
 	t:Play()
