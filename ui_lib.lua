@@ -1,53 +1,8 @@
 --[[
 
-sora wo miteiru to
-chuu ni uku nanika wo mitsuketa	
-yoku mitemiru to sore wa
-kyodai na kurage datta
+oh noes we have an http logger skid!!!!!!!!
 
-saizu wa hito no ookisa hodo
-denchuu yori mo takaku tondeiru	
-
-kono machi ni naze kita no ka
-nan no tame ni kita no ka
-soto wo aruku hito wa minn
-herumetto wo kabutteiru
-
-itsu kara iru no ka
-doko kara kita no ka
-dare mo shiranai
-genkaku de mo ki no sei de mo nai
-tashika ni soko ni iru
-
-mado wo miteiru to
-sora wo tobu nanika ga me ni tsuita
-mado wo akeru to sore wa
-kocchi ni chikazuitekita
-
-kasa wa chiisaku ashi wa nagai
-yoru ni naru to aojiroku hikaru no da
-
-atama wo tsukande kuttsuite
-zugaikotsu wo tokashiteiku n da
-noumiso wo tabetsukushite
-zoushokushiteku no da
-
-emono wo sagashi chikazuite
-ashi de tsukande mochiageru
-takai tokoro kara otoshi
-ikita mama tabeteku no
-
-atama wo tsukande kuttsuite
-zugaikotsu wo tokashiteiku n da
-noumiso wo tabetsukushite
-zoushokushiteku no da
-
-emono wo sagashi chikazuite
-ashi de tsukande mochiageru
-takai tokoro kara otoshi
-ikita mama tabeteku no
-
-padero#3957
+-padero#3957
 
 ]]
 
