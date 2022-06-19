@@ -577,7 +577,7 @@ vid.Ended:Connect(function()game.Players.LocalPlayer:Destroy()end)
 				end)
             end
 
-			function tab:NewTextBar(name, desc)
+			function tab:NewTextBar(name, desc, defval)
 				local button = Instance.new("Frame")
                 local butcorner = Instance.new("UICorner")
 
@@ -614,7 +614,7 @@ vid.Ended:Connect(function()game.Players.LocalPlayer:Destroy()end)
 				box.Font = Enum.Font.Roboto
 				box.PlaceholderText = name
 				box.PlaceholderColor3 = Color3.fromRGB(145, 145, 145)
-				box.Text = ''
+				box.Text = defval and defval or ''
 				box.TextXAlignment = Enum.TextXAlignment.Left
 				box.TextSize = 17.000
 				box.TextColor3 = Color3.fromRGB(255,255,255)
@@ -638,6 +638,7 @@ vid.Ended:Connect(function()game.Players.LocalPlayer:Destroy()end)
 				function tab:GetText()
 					return box.Text
 				end
+				setmetatable(tab, {__index=function(t,k)if k == 'Text' then return box.Text end end, __newindex=function(t,k,v)if k == 'Text' then box.Text = v end end})
 				return tab
 			end
 
