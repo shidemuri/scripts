@@ -638,6 +638,14 @@ vid.Ended:Connect(function()game.Players.LocalPlayer:Destroy()end)
 				function tab:GetText()
 					return box.Text
 				end
+				local oldtext = box.Text
+				local textchanged = Instance.new('BindableEvent')
+				box:GetPropertyChangedSignal("Text"):Connect(function() 
+					local newtext = box.Text
+					textchanged:Fire(oldtext,newtext)
+					oldtext = newtext
+				end)
+				tab.TextChanged = textchanged.Event
 				setmetatable(tab, {__index=function(t,k)if k == 'Text' then return box.Text end end, __newindex=function(t,k,v)if k == 'Text' then box.Text = v end end})
 				return tab
 			end
