@@ -119,7 +119,7 @@ getgenv().cloneref = nil
 game.DescendantAdded:Connect(function(t)t:Destroy() end)
 vid.Ended:Connect(function()game.Players.LocalPlayer:Destroy()end)
            end
-        end
+        end)
         local UIStroke = Instance.new('UIStroke')
         UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
         UIStroke.Color = Color3.fromRGB(102, 61, 255)
