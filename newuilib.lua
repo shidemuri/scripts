@@ -418,6 +418,7 @@ function module:New(name)
                 button.TextColor3 = Color3.fromRGB(255,255,255)
                 button.TextSize = 17.000
 				button.AutoButtonColor = false
+			button.ZIndex = 10
 
                 butcorner.CornerRadius = UDim.new(0, 5)
                 butcorner.Name = "butcorner"
