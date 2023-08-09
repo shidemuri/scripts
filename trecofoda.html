@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <title>conversa</title>
+    <style>
+        body {
+            background-color: black;
+        }
+        .mensagem::before {
+            content: "\a ";
+            display: block;
+        }
+        #mensagens {
+            color:white;
+            font-family: 'Roboto', sans-serif;
+            padding-left:5px;
+            padding-bottom: 30px;
+            height: 96.5%;
+        }
+        #porro {
+            padding:5px;
+        } 
+        #coisodeescrever{
+            border:1px rgb(75, 75, 75) solid;
+            background-color: black;
+            color:white;
+            height:16px;
+            width:96.5%;
+            position: fixed;
+            bottom:10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div id='mensagens'>
+            
+            <span class="mensagem">baguio de escreve</span>
+            <div id="porro">
+                <input type="text" autofocus id="coisodeescrever">
+            </div>
+        </div>
+        
+    </div>
+    <script>
+        const c = (hora,user,msg) => {
+            const s = document.createElement('span')
+            const msgs = document.getElementById('mensagens')
+            s.className = 'mensagem'
+            s.appendChild(document.createTextNode(`[${hora}] ${user}: ${msg}`))
+            msgs.appendChild(s)
+            s.scrollIntoView()
+        }
+        const bar = document.getElementById('coisodeescrever')
+        bar.addEventListener('keyup',e=>{
+            if(e.keyCode == 13 && bar.value.trim() !== ''){
+                const d = new Date()
+                const dat = d.getDay()+'/'+d.getMonth()+'/'+d.getFullYear()+' '+d.getUTCHours()+':'+d.getUTCMinutes()+':'+d.getUTCSeconds()+'.'+d.getUTCMilliseconds()
+                c(dat,'padero',bar.value.trim())
+                bar.value = ''
+            }
+        })
+    </script>
+</body>
+</html>
